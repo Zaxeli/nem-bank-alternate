@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bank on NEM</title>
+        <link rel="stylesheet" href="./main.css"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <script src="nem-sdk.js"></script>
+        <script src="main.js"></script>
+        <script src="./banking.js"></script>
+
+        <script>
+            let common = nem.model.objects.create("common")("HaveAGoodOne!","aa4da48aac46aefd629826440da69a08adf6ea5ef193b0a646454ad2f643a27b");
+
+            //var nem = require("nem-sdk").default;
+            //var endpoint = nem.model.objects.create("endpoint")(nem.model.nodes.defaultTestnet, nem.model.nodes.defaultPort);
+            
+            var bank = "TDIAQ4VHYD3SADDGNZEKPQXFPLU6IACR3URW5FRG";
+            var address;
+
+            
+            $(document).ready(function(){
+
+                function login(){
+                    if(!$("#loginAddress").val()){
+                        alert("give an address");
+                        return;
+                    } 
+
+                    //update address
+                    address = nem.model.address.clean($("#loginAddress").val());
+                    
+                    updateBalance();                    
+                }
+                //bank, customer, amount, common ,endpoint){
+
+                function withdrawBalance(){
+                    console.log("withdrawing");
+                    amount = parseInt($("#withdrawAmt").val());
+                    console.log("withdrawing2");
+                    withdraw(bank, address, amount, common, endpoint).then(function(res){
+                        console.log("withdraw return promise result:")
+                        console.log(res);
+                    }, console.log);
+
+                }
+
+                function updateBalance(){
+                    calcBalance(bank, address).then(function(bal){
+                        let str = "Balance of Address: " + address + " is " + bal;
+                        console.log(bal);
+                        $("#balance").html(str);
+                        $("#dashboard").show();
+                    },console.log);
+                }
+
+                $("#updateBalance").click(updateBalance);
+                $("#loginBtn").click(login);
+                $("#withdrawBtn").click(withdrawBalance);
+            });
+        </script>
+    </head>
+    <body>
+        <h1>BANK</h1>
+        <div id="login">
+            <label>Address:</label><input placeholder="address" type="text" id="loginAddress"/>
+            <button id="loginBtn">Login</button>
+        </div>
+        <div id="dashboard">
+            <div id="balance"></div>
+            <button id="updateBalance">Refresh</button>
+            <div id="withdraw">
+                <input type="text" id="withdrawAmt"/><button id="withdrawBtn">Withdraw</button>
+            </div>
+        </div>
+    </body>
+</html>
