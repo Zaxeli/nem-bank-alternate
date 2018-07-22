@@ -1,5 +1,6 @@
 **Note: This is not ready to be run as is, some minor changes need to be made first (marked in comments).**
-Changes to make:
+
+<br/>Changes to make:
  1. Give the Password and Private Key for the account to be used as bank
  2. Give the address of account acting as bank.
 
