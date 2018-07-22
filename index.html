@@ -9,14 +9,13 @@
         <script src="./banking.js"></script>
 
         <script>
-            let common = nem.model.objects.create("common")("HaveAGoodOne!","aa4da48aac46aefd629826440da69a08adf6ea5ef193b0a646454ad2f643a27b");
-
-            //var nem = require("nem-sdk").default;
-            //var endpoint = nem.model.objects.create("endpoint")(nem.model.nodes.defaultTestnet, nem.model.nodes.defaultPort);
+            //CHANGE THIS: give the password and privatekey for the account acting as bank
+            let common = nem.model.objects.create("common")("password","privatekey");
             
-            var bank = "TDIAQ4VHYD3SADDGNZEKPQXFPLU6IACR3URW5FRG";
+            //CHANGE THIS: give the address for the account acting as bank
+            var bank = "address of account which is to be used as bank";
             var address;
-//s
+
             
             $(document).ready(function(){
 
@@ -31,7 +30,6 @@
                     
                     updateBalance();                    
                 }
-                //bank, customer, amount, common ,endpoint){
 
                 function withdrawBalance(){
                     console.log("withdrawing");

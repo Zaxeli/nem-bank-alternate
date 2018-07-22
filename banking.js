@@ -19,7 +19,6 @@ function getOutgoing(bank, customer){
 function getIncoming(bank, customer){
     return nem.com.requests.account.transactions.incoming(endpoint, bank).then(function(res){
         var incoming = res.data.filter((item)=>{
-            //addr: TCUPVQ-C77TAM-H7QKPF-P5OT3T-LUV4JY-RPV6CE-GJXW
             var publicKey = item.transaction.signer;
             var address = nem.model.address.toAddress(publicKey, nem.model.network.data.testnet.id);
     
@@ -55,7 +54,7 @@ function calcBalance(bank, customer){
 function checkNoPendingWithdraws(bank, customer){
     return nem.com.requests.account.transactions.unconfirmed(endpoint, bank).then(function(res){
         var unconfirmedWithdraws = res.data.filter((item)=>{
-            return item.transaction.recipient == customer; //withdraw-er
+            return item.transaction.recipient == customer; //withdraw-er (one who is withdrawing)
         });
         return !unconfirmedWithdraws[0]; // true condition if there are no unconfirmed withdraws. To prevent rentry for withdraw.
     },console.log);
@@ -82,7 +81,7 @@ function withdraw(bank, customer, amount, common ,endpoint){
 
                     return nem.model.transactions.send(common, transactionEntity, endpoint);
                 }
-                //withdraw is more than/equal to balance
+                //withdraw is more than or equal to balance
                 else{
                     return;
                 }
