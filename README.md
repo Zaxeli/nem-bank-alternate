@@ -4,7 +4,7 @@
  1. Give the Password and Private Key for the account to be used as bank
  2. Give the address of account acting as bank.
 
-**This is not to be used in production, the password and privatekey should not be made available like this.**
+**This is not to be used in production, the password and privatekey should not be made available like this.** (The purpose is to demonstrate an alternate model).
 
 ## Working:
 
